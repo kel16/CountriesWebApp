@@ -9,7 +9,7 @@ namespace CountriesWebApp.Data
     {
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<Country> Countries{ get; set; }
+        public DbSet<Country> Countries { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

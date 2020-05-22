@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CountriesWebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200521185521_Init")]
+    [Migration("20200522075918_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

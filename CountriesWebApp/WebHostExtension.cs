@@ -31,15 +31,21 @@ namespace CountriesWebApp.Data
             if (hostingEnvironment.EnvironmentName == "Development")
             {
                 context.Database.BeginTransaction();
+
                 try
                 {
-                    if (!context.Regions.Select(mt => mt.Name).Any(mt => DataSeeder.RegionsInfo.Contains(mt)))
-                        DataSeeder.InitRegions(context);
+                    if (!context.Cities.Any())
+                        DataSeeder.InitializeRegions(context);
+                    
+                    if (!context.Cities.Any())
+                        DataSeeder.InitializeCities(context);
 
-                    context.SaveChanges();
+                    if (!context.Countries.Any())
+                        DataSeeder.InitializeCountries(context);
+
                     context.Database.CommitTransaction();
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
                     context.Database.RollbackTransaction();
                 }
