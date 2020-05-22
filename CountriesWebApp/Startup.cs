@@ -1,3 +1,8 @@
+using CountriesWebApp.Repositories;
+using CountriesWebApp.Repositories.IRepositories;
+using CountriesWebApp.Storages;
+using CountriesWebApp.Storages.IStorages;
+using CountriesWebApp.Builders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -45,6 +50,10 @@ namespace CountriesWebApp
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICountryStorage, CountryStorage>();
+            services.AddScoped<CountryBuilder>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

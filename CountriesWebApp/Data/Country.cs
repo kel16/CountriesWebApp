@@ -14,9 +14,9 @@ namespace CountriesWebApp.Data
         public int Population { get; set; }
 
         public int CapitalId { get; set; }
-        public City Capital { get; set; }
+        public virtual City Capital { get; set; }
 
         public int RegionId { get; set; }
-        public Region Region { get; set; }
+        public virtual Region Region { get; set; }
     }
 }

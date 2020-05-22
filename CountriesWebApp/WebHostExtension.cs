@@ -45,7 +45,7 @@ namespace CountriesWebApp.Data
 
                     context.Database.CommitTransaction();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     context.Database.RollbackTransaction();
                 }
