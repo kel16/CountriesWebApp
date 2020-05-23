@@ -1,9 +1,0 @@
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\bin\Debug\netcoreapp2.1\CountriesWebApp.Models.deps.json
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\bin\Debug\netcoreapp2.1\CountriesWebApp.Models.dll
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\bin\Debug\netcoreapp2.1\CountriesWebApp.Models.pdb
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\obj\Debug\netcoreapp2.1\CountriesWebApp.Models.csprojAssemblyReference.cache
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\obj\Debug\netcoreapp2.1\CountriesWebApp.Models.csproj.CoreCompileInputs.cache
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\obj\Debug\netcoreapp2.1\CountriesWebApp.Models.AssemblyInfoInputs.cache
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\obj\Debug\netcoreapp2.1\CountriesWebApp.Models.AssemblyInfo.cs
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\obj\Debug\netcoreapp2.1\CountriesWebApp.Models.dll
-C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Models\obj\Debug\netcoreapp2.1\CountriesWebApp.Models.pdb
