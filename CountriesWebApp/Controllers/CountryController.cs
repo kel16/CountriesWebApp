@@ -101,7 +101,7 @@ namespace CountriesWebApp.Controllers
             else
             {
                 // Update existing country
-                await countryStorage.UpdateCountry(countryExtracted, country, region.Id, city.Id);
+                await countryStorage.UpdateCountry(countryExtracted, country, region, city);
             }
         }
     }

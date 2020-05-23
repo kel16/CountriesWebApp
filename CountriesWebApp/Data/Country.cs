@@ -16,10 +16,10 @@ namespace CountriesWebApp.Data
 
         public int CapitalId { get; set; }
         [ForeignKey("CapitalId")]
-        public virtual City Capital { get; set; }
+        public City Capital { get; set; }
 
         public int RegionId { get; set; }
         [ForeignKey("RegionId")]
-        public virtual Region Region { get; set; }
+        public Region Region { get; set; }
     }
 }

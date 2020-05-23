@@ -44,6 +44,7 @@ namespace CountriesWebApp.Repositories.IRepositories
         /// <param name="regionId">Updated id of region</param>
         /// <param name="capitalId">Updated id of city</param>
         /// <returns></returns>
-        Task<Country> UpdateCountry(Country country, CountryModel newCountry, int regionId, int capitalId);
+        Task<Country> UpdateCountry(Country country, CountryModel newCountry, Region region, City capital);
+        //Task<Country> UpdateCountry(Country country, CountryModel newCountry, int regionId, int capitalId);
     }
 }

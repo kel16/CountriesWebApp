@@ -112,13 +112,15 @@ namespace CountriesWebApp.Repositories
         /// <param name="regionId">Updated id of region</param>
         /// <param name="capitalId">Updated id of city</param>
         /// <returns></returns>
-        public async Task<Country> UpdateCountry(Country country, CountryModel newCountry, int regionId, int capitalId)
+        public async Task<Country> UpdateCountry(Country country, CountryModel newCountry, Region region, City capital)
         {
             country.Name = newCountry.Name;
             country.Square = newCountry.Square;
             country.Population = newCountry.Population;
-            country.RegionId = regionId;
-            country.CapitalId = capitalId;
+            country.Region = region;
+            country.Capital = capital;
+            country.RegionId = region.Id;
+            country.CapitalId = capital.Id;
 
             context.Countries.Update(country);
 

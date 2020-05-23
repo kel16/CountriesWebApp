@@ -54,10 +54,10 @@ namespace CountriesWebApp.Storages
         /// </summary>
         /// <param name="country">Country entity to update</param>
         /// <param name="newCountryModel">Country model with new information</param>
-        /// <param name="regionId">New region id</param>
-        /// <param name="CityId">New city if</param>
+        /// <param name="regionId">New region entity</param>
+        /// <param name="CityId">New city entity</param>
         /// <returns></returns>
-        public async Task UpdateCountry(Country country, CountryModel newCountryModel, int regionId, int CityId)
+        public async Task UpdateCountry(Country country, CountryModel newCountryModel, Region regionId, City CityId)
         {
             var countryUpdated = countryRepository.UpdateCountry(country, newCountryModel, regionId, CityId);
 
