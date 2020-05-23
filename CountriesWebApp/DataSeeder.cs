@@ -88,7 +88,7 @@ namespace CountriesWebApp
                 new Country
                 {
                     Name = "Germany",
-                    Code = "276",
+                    Code = "de",
                     Square = 2656.0,
                     Population = 5000,
                     CapitalId = 5,
@@ -98,7 +98,7 @@ namespace CountriesWebApp
                 new Country
                 {
                     Name = "China",
-                    Code = "111",
+                    Code = "cn",
                     Square = 5769.3,
                     Population = 999,
                     CapitalId = 3,
