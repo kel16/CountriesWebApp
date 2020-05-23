@@ -15,22 +15,22 @@ namespace CountriesWebApp.Data
     {
         public static List<string> RegionsInfo = new List<string>()
         {
-            "Австралия",
-            "Азия",
-            "Африка",
-            "Европа",
-            "Океания",
-            "Южная Америка"
+            "Australia",
+            "Asia",
+            "Africa",
+            "Europe",
+            "Oceania",
+            "South America"
         };
 
         public static List<string> CitiesInfo = new List<string>()
         {
-            "Мельбурн",
-            "Гонконг",
-            "Пекин",
-            "Дрезден",
-            "Берлин",
-            "Вашингтон"
+            "Melbourn",
+            "Hong Kong",
+            "Peking",
+            "Dresden",
+            "Berlin",
+            "Washington"
         };
 
         public static void InitializeRegions(DataContext context)
@@ -85,7 +85,7 @@ namespace CountriesWebApp.Data
             {
                 new Country
                 {
-                    Name = "Германия",
+                    Name = "Germany",
                     Code = "276",
                     Square = 2656.0,
                     Population = 5000,
@@ -97,7 +97,7 @@ namespace CountriesWebApp.Data
 
                 new Country
                 {
-                    Name = "Китай",
+                    Name = "China",
                     Code = "111",
                     Square = 5769.3,
                     Population = 999,

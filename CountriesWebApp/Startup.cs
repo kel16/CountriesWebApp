@@ -2,7 +2,6 @@ using CountriesWebApp.Repositories;
 using CountriesWebApp.Repositories.IRepositories;
 using CountriesWebApp.Storages;
 using CountriesWebApp.Storages.IStorages;
-using CountriesWebApp.Builders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,6 +18,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace CountriesWebApp
 {
@@ -51,9 +51,17 @@ namespace CountriesWebApp
                 configuration.RootPath = "ClientApp/build";
             });
 
+            services.AddScoped<IRegionRepository, RegionRepository>();
+            services.AddScoped<IRegionStorage, RegionStorage>();
+
+            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<ICityStorage, CityStorage>();
+
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICountryStorage, CountryStorage>();
-            services.AddScoped<CountryBuilder>();
+            //services.AddScoped<CountryBuilder>();
+
+            services.AddAutoMapper(typeof(MappingProfile));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
