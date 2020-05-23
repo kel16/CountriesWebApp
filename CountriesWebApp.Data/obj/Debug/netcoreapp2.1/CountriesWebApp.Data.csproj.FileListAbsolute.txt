@@ -1,0 +1,14 @@
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\bin\Debug\netcoreapp2.1\CountriesWebApp.Models.dll
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\obj\Debug\netcoreapp2.1\CountriesWebApp.Data.csprojAssemblyReference.cache
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\obj\Debug\netcoreapp2.1\CountriesWebApp.Data.csproj.CoreCompileInputs.cache
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\obj\Debug\netcoreapp2.1\CountriesWebApp.Data.AssemblyInfoInputs.cache
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\obj\Debug\netcoreapp2.1\CountriesWebApp.Data.AssemblyInfo.cs
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\bin\Debug\netcoreapp2.1\CountriesWebApp.Data.deps.json
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\bin\Debug\netcoreapp2.1\CountriesWebApp.Data.runtimeconfig.json
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\bin\Debug\netcoreapp2.1\CountriesWebApp.Data.runtimeconfig.dev.json
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\bin\Debug\netcoreapp2.1\CountriesWebApp.Data.dll
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\bin\Debug\netcoreapp2.1\CountriesWebApp.Data.pdb
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\bin\Debug\netcoreapp2.1\CountriesWebApp.Models.pdb
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\obj\Debug\netcoreapp2.1\CountriesWebApp.Data.csproj.CopyComplete
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\obj\Debug\netcoreapp2.1\CountriesWebApp.Data.dll
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Data\obj\Debug\netcoreapp2.1\CountriesWebApp.Data.pdb

@@ -1,0 +1,14 @@
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\bin\Debug\netcoreapp2.1\CountriesWebApp.Domain.deps.json
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\bin\Debug\netcoreapp2.1\CountriesWebApp.Domain.dll
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\bin\Debug\netcoreapp2.1\CountriesWebApp.Domain.pdb
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\bin\Debug\netcoreapp2.1\CountriesWebApp.Data.dll
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\bin\Debug\netcoreapp2.1\CountriesWebApp.Models.dll
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\bin\Debug\netcoreapp2.1\CountriesWebApp.Data.pdb
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\bin\Debug\netcoreapp2.1\CountriesWebApp.Models.pdb
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\obj\Debug\netcoreapp2.1\CountriesWebApp.Domain.csprojAssemblyReference.cache
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\obj\Debug\netcoreapp2.1\CountriesWebApp.Domain.csproj.CoreCompileInputs.cache
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\obj\Debug\netcoreapp2.1\CountriesWebApp.Domain.AssemblyInfoInputs.cache
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\obj\Debug\netcoreapp2.1\CountriesWebApp.Domain.AssemblyInfo.cs
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\obj\Debug\netcoreapp2.1\CountriesWebApp.Domain.csproj.CopyComplete
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\obj\Debug\netcoreapp2.1\CountriesWebApp.Domain.dll
+C:\Users\NONAME\source\repos\CountriesWebApp\CountriesWebApp.Domain\obj\Debug\netcoreapp2.1\CountriesWebApp.Domain.pdb

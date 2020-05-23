@@ -1,7 +1,7 @@
 ﻿using CountriesWebApp.Enums;
-using CountriesWebApp.Data;
-using CountriesWebApp.ViewModels;
-using CountriesWebApp.Storages.IStorages;
+using CountriesWebApp.Models.Data;
+using CountriesWebApp.Models.ViewModels;
+using CountriesWebApp.Domain.Storages.IStorages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
