@@ -16,7 +16,6 @@ const Home = () => {
 		setItems([])
 		axios
 			.get(`/api/Countries/get-countries`)
-			//.get('https://localhost:5001/api/Countries/get-countries')
 			.then(function (response) {
 				if (response.status != 200) {
 					setLoading(false)
