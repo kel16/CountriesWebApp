@@ -33,7 +33,7 @@ namespace CountriesWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(
@@ -51,11 +51,7 @@ namespace CountriesWebApp
             });
 
             services.AddScoped<IRegionRepository, RegionRepository>();
-            services.AddScoped<IRegionStorage, RegionStorage>();
-
             services.AddScoped<ICityRepository, CityRepository>();
-            services.AddScoped<ICityStorage, CityStorage>();
-
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICountryStorage, CountryStorage>();
         }
@@ -76,6 +72,13 @@ namespace CountriesWebApp
             //app.UseCors(builder => builder.WithOrigins("http://localhost:9000").AllowAnyHeader().AllowAnyMethod());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}");
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
+            });
             app.UseSpaStaticFiles();
         }
     }

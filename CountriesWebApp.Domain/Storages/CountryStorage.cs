@@ -9,71 +9,102 @@ using System.Threading.Tasks;
 
 namespace CountriesWebApp.Domain.Storages
 {
+    /// <summary>
+    /// Contains methods:
+    /// <para><see cref="GetCountries()"/></para>
+    /// <para><see cref="GetCountryByCode(string)"/></para>
+    /// <para><see cref="GetCountryByName(string)"/></para>
+    /// <para><see cref="AddCountry(CountryModel)"/></para>
+    /// </summary>
     public class CountryStorage : ICountryStorage
     {
         private readonly ICountryRepository countryRepository;
+        private readonly ICityRepository cityRepository;
+        private readonly IRegionRepository regionRepository;
 
-        public CountryStorage(ICountryRepository countryRepository)
+        /// <summary>
+        /// Provides dependency injection.
+        /// </summary>
+        /// <param name="countryRepository">country repository</param>
+        public CountryStorage(ICountryRepository countryRepository, ICityRepository cityRepository, IRegionRepository regionRepository)
         {
             this.countryRepository = countryRepository;
+            this.cityRepository = cityRepository;
+            this.regionRepository = regionRepository;
         }
 
         /// <summary>
-        /// Returns full list of countries
+        /// Returns full list of countries.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of country models.</returns>
         public async Task<List<CountryModel>> GetCountries()
         {
-            var countries = await countryRepository.GetCountries();
-
-            return countries;
+            return await countryRepository.GetCountries();
         }
 
         /// <summary>
-        /// Returns country model with the given code
+        /// Returns country model with the given name.
         /// </summary>
-        /// <param name="countryCode">Given country code</param>
-        /// <returns></returns>
-        public async Task<Country> GetCountryByCode(string countryCode)
-        {
-            return await countryRepository.GetCountryByCode(countryCode);
-        }
-
-        /// <summary>
-        /// Returns country model with the given name
-        /// </summary>
-        /// <param name="countryName"></param>
-        /// <returns></returns>
+        /// <param name="countryName">Country name.</param>
+        /// <returns>Country model.</returns>
         public async Task<CountryModel> GetCountryByName(string countryName)
         {
             return await countryRepository.GetCountryByName(countryName);
         }
 
         /// <summary>
-        /// Updates country
+        /// Adds new country.
         /// </summary>
-        /// <param name="country">Country entity to update</param>
-        /// <param name="newCountryModel">Country model with new information</param>
-        /// <param name="regionId">New region entity</param>
-        /// <param name="CityId">New city entity</param>
+        /// <param name="country">Country model.</param>
         /// <returns></returns>
-        public async Task UpdateCountry(Country country, CountryModel newCountryModel, Region regionId, City CityId)
+        public async Task AddCountry(CountryModel countryModel)
         {
-            var countryUpdated = countryRepository.UpdateCountry(country, newCountryModel, regionId, CityId);
+            // Check if city already exists.
+            var city = await cityRepository.GetCityByName(countryModel.Capital);
 
-            await countryRepository.SaveChangesAsync();
-        }
+            if (city == null)
+            {
+                // City not found, add it and get Id.
+                await cityRepository.AddCity(new City { Name = countryModel.Capital });
 
-        /// <summary>
-        /// Adds new country
-        /// </summary>
-        /// <param name="country">Country model</param>
-        /// <returns></returns>
-        public async Task AddCountry(Country country)
-        {
-            await countryRepository.Add(country);
+                city = await cityRepository.GetCityByName(countryModel.Capital);
+            }
 
-            await countryRepository.SaveChangesAsync();
+            // Check if region already exists.
+            var region = await regionRepository.GetRegionByName(countryModel.Region);
+
+            if (region == null)
+            {
+                // Region not found, add it and get Id.
+                await regionRepository.AddRegion(new Region { Name = countryModel.Region });
+
+                region = await regionRepository.GetRegionByName(countryModel.Region);
+            }
+
+            // Create entity for country we want to add / update.
+            var countryNew = new Country
+            {
+                Name = countryModel.Name,
+                Code = countryModel.Code,
+                Square = countryModel.Square,
+                Population = countryModel.Population,
+                RegionId = region.Id,
+                CapitalId = city.Id,
+            };
+
+            // Check if country with the provided code already exists.
+            var countryExtracted = await countryRepository.GetCountryByCode(countryModel.Code);
+
+            if (countryExtracted == null)
+            {
+                // Country by code not found, add new country.
+                await countryRepository.AddCountry(countryNew);
+            }
+            else
+            {
+                // Update existing country.
+                await countryRepository.UpdateCountry(countryNew);
+            }
         }
     }
 }

@@ -7,44 +7,48 @@ using System.Threading.Tasks;
 
 namespace CountriesWebApp.Data.Repositories.IRepositories
 {
-    public interface ICountryRepository : IRepository
+    /// <summary>
+    /// Contains methods:
+    /// <para><see cref="GetCountries()"/></para>
+    /// <para><see cref="GetCountryByName(string)"/></para>
+    /// <para><see cref="GetCountryByCode(string)"/></para>
+    /// <para><see cref="AddCountry(Country)"/></para>
+    /// <para><see cref="UpdateCountry(Country, CountryModel, Region, City)"/></para>
+    /// </summary>
+    public interface ICountryRepository
     {
         /// <summary>
-        /// Returns list of countries
+        /// Returns list of countries.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of country models.</returns>
         Task<List<CountryModel>> GetCountries();
 
         /// <summary>
-        /// Returns country with the given name
+        /// Returns country view model with the given name.
         /// </summary>
-        /// <param name="countryName">Given name of the country</param>
-        /// <returns></returns>
+        /// <param name="countryName">Given name of the country.</param>
+        /// <returns>Country model.</returns>
         Task<CountryModel> GetCountryByName(string countryName);
 
         /// <summary>
-        /// Returns country with the given code
+        /// Returns country entity with the given code.
         /// </summary>
-        /// <param name="countryCode">Given code of the country</param>
-        /// <returns></returns>
+        /// <param name="countryCode">Given code of the country.</param>
+        /// <returns>Country entity.</returns>
         Task<Country> GetCountryByCode(string countryCode);
 
         /// <summary>
-        /// Saves country
+        /// Saves country.
         /// </summary>
-        /// <param name="country">Contains country entity</param>
+        /// <param name="country">Contains country entity.</param>
         /// <returns></returns>
-        Task Add(Country country);
+        Task AddCountry(Country country);
 
         /// <summary>
-        /// Updates country information
+        /// Updates country information in database.
         /// </summary>
-        /// <param name="country">Country entity to update</param>
-        /// <param name="newCountry">Updated country model</param>
-        /// <param name="regionId">Updated id of region</param>
-        /// <param name="capitalId">Updated id of city</param>
-        /// <returns></returns>
-        Task<Country> UpdateCountry(Country country, CountryModel newCountry, Region region, City capital);
-        //Task<Country> UpdateCountry(Country country, CountryModel newCountry, int regionId, int capitalId);
+        /// <param name="country">Country entity.</param>
+        /// <returns>Country entity</returns>
+        Task<Country> UpdateCountry(Country country);
     }
 }

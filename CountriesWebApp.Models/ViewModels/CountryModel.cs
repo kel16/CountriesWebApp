@@ -7,75 +7,49 @@ using System.Text;
 namespace CountriesWebApp.Models.ViewModels
 {
     /// <summary>
-    /// Класс, описывающий сущность страны
+    /// Describes country view model.
     /// </summary>
     public class CountryModel
     {
         /// <summary>
-        /// Уникальный идентификатор
+        /// Primary key.
         /// </summary>
         public int? Id { get; set; }
 
         /// <summary>
-        /// Код страны - строка
+        /// Country code - string.
         /// </summary>
+        [Required(ErrorMessage = "Country's code must be specified")]
         public string Code { get; set; }
 
         /// <summary>
-        /// Площадь
+        /// Square of country.
         /// </summary>
+        [Required(ErrorMessage = "Country's square must be specified")]
         public double Square { get; set; }
 
         /// <summary>
-        /// Население
+        /// Country population.
         /// </summary>
+        [Required(ErrorMessage = "Country's population must be specified")]
         public int Population { get; set; }
 
         /// <summary>
-        /// Идентификатор региона страны
+        /// Name of the country.
         /// </summary>
+        [Required(ErrorMessage = "Country's name must be specified")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Название региона - строка
+        /// Name of the region.
         /// </summary>
+        [Required(ErrorMessage = "Country region's name must be specified")]
         public string Region { get; set; }
 
         /// <summary>
-        /// Название столицы - строка
+        /// Name of the capital.
         /// </summary>
+        [Required(ErrorMessage = "Country capital's name must be specified")]
         public string Capital { get; set; }
-
-        /*public Country GetCountry()
-        {
-            var country = new Country();
-            country.Square = this.Square;
-            country.Population = this.Population;
-            country.Name = this.Name;
-
-            if (!this.RegionId.Id.HasValue)
-                country.Region = this.RegionId.GetRegion();
-            else
-                country.RegionId = this.RegionId.Id.Value;
-
-            if (this.Id.HasValue)
-                country.Id = this.Id.Value;
-
-            return country;
-        }
-
-        public CountryModel()
-        {
-        }
-
-        public CountryModel(Country country, Region region, City capital)
-        {
-            Id = country.Id;
-            Square = country.Square;
-            Population = country.Population;
-            Name = country.Name;
-            RegionId = new RegionModel() { Name = region.Name };
-            CityId = new CityModel() { Name = capital.Name };
-        }*/
     }
 }

@@ -13,25 +13,27 @@ namespace CountriesWebApp.Data.Repositories
     /// Contains methods:
     /// <para><see cref="GetCountries()"/></para>
     /// <para><see cref="GetCountryByName(string)"/></para>
-    /// <para><see cref="Add(CountryModel)"/></para>
+    /// <para><see cref="GetCountryByCode(string)"/></para>
+    /// <para><see cref="AddCountry(Country)"/></para>
+    /// <para><see cref="UpdateCountry(Country, CountryModel, Region, City)"/></para>
     /// </summary>
     public class CountryRepository : ICountryRepository
     {
         private readonly DataContext context;
 
         /// <summary>
-        /// Provides Dependency Injection
+        /// Provides Dependency Injection.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">Aplication database context.</param>
         public CountryRepository(DataContext context)
         {
             this.context = context;
         }
 
         /// <summary>
-        /// Returns list of countries
+        /// Returns list of countries.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List country view models</returns>
         public async Task<List<CountryModel>> GetCountries()
         {
             var countries = context.Countries
@@ -49,10 +51,10 @@ namespace CountriesWebApp.Data.Repositories
         }
 
         /// <summary>
-        /// Returns country model with the given name
+        /// Returns country model with the given name.
         /// </summary>
-        /// <param name="countryName">Given name of the country</param>
-        /// <returns></returns>
+        /// <param name="countryName">Given name of the country.</param>
+        /// <returns>Country model</returns>
         public async Task<CountryModel> GetCountryByName(string countryName)
         {
             var country = from c in context.Countries
@@ -72,10 +74,10 @@ namespace CountriesWebApp.Data.Repositories
         }
 
         /// <summary>
-        /// Returns country entity with the given code
+        /// Returns country entity with the given code.
         /// </summary>
-        /// <param name="countryCode">Given code of the country</param>
-        /// <returns></returns>
+        /// <param name="countryCode">Given code of the country.</param>
+        /// <returns>Country entity</returns>
         public async Task<Country> GetCountryByCode(string countryCode)
         {
             var country = from c in context.Countries
@@ -91,49 +93,49 @@ namespace CountriesWebApp.Data.Repositories
                               Capital = c.Capital,
                           };
 
-            return country.FirstOrDefault();
+            return await country.FirstOrDefaultAsync();
         }
 
         /// <summary>
-        /// Saves country
+        /// Saves country to database.
         /// </summary>
-        /// <param name="country">Contains country entity</param>
+        /// <param name="country">Contains country entity.</param>
         /// <returns></returns>
-        public async Task Add(Country country)
+        public async Task AddCountry(Country country)
         {
+            if (country == null)
+            {
+                throw new ArgumentNullException("Country");
+            }
+
             await context.Countries.AddAsync(country);
+            await context.SaveChangesAsync();
         }
 
         /// <summary>
-        /// Updates country information
+        /// Updates country information in database.
         /// </summary>
-        /// <param name="country">Country entity to update</param>
-        /// <param name="newCountry">Updated country model</param>
-        /// <param name="regionId">Updated id of region</param>
-        /// <param name="capitalId">Updated id of city</param>
-        /// <returns></returns>
-        public async Task<Country> UpdateCountry(Country country, CountryModel newCountry, Region region, City capital)
+        /// <param name="country">Country entity.</param>
+        /// <returns>Country entity</returns>
+        public async Task<Country> UpdateCountry(Country country)
         {
-            country.Name = newCountry.Name;
+            if (country == null)
+            {
+                throw new ArgumentNullException("Country");
+            }
+
+            /*country.Name = newCountry.Name;
             country.Square = newCountry.Square;
             country.Population = newCountry.Population;
-            country.Region = region;
-            country.Capital = capital;
-            country.RegionId = region.Id;
-            country.CapitalId = capital.Id;
+            country.Region = newCountry.Region;
+            country.Capital = newCountry.Capital;*/
+            //country.RegionId = newCountry.Region.Id;
+            //country.CapitalId = newCountry.Capital.Id;
 
             context.Countries.Update(country);
+            context.SaveChanges();
 
             return country;
-        }
-
-        /// <summary>
-        /// Saves changes to DB
-        /// </summary>
-        /// <returns></returns>
-        public Task SaveChangesAsync()
-        {
-            return context.SaveChangesAsync();
         }
     }
 }

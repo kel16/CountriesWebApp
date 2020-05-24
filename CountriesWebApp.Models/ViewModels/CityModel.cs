@@ -6,14 +6,17 @@ using System.Text;
 namespace CountriesWebApp.Models.ViewModels
 {
     /// <summary>
-    /// Класс, описывающий сущность города
+    /// Describes city view model.
     /// </summary>
     public class CityModel
     {
+        /// <summary>
+        /// Unique ID.
+        /// </summary>
         public int? Id { get; set; }
 
         /// <summary>
-        /// Название города
+        /// Name of the city.
         /// </summary>
         [Required(ErrorMessage = "Для города должно быть указано название")]
         public string Name { get; set; }

@@ -1,5 +1,4 @@
-﻿using CountriesWebApp.Enums;
-using CountriesWebApp.Models.Data;
+﻿using CountriesWebApp.Models.Data;
 using CountriesWebApp.Models.ViewModels;
 using CountriesWebApp.Domain.Storages.IStorages;
 using System;
@@ -13,99 +12,74 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CountriesWebApp.Controllers
 {
+    /// <summary>
+    /// Provides methods for listing countries, getting the country by name and adding country.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class CountriesController : Controller
     {
         private readonly ICountryStorage countryStorage;
-        private readonly ICityStorage cityStorage;
-        private readonly IRegionStorage regionStorage;
 
-        public CountriesController(ICountryStorage countryStorage, ICityStorage cityStorage, IRegionStorage regionStorage)
+        /// <summary>
+        /// Provides dependency injection.
+        /// </summary>
+        /// <param name="countryStorage">Country storage.</param>
+        public CountriesController(ICountryStorage countryStorage)
         {
             this.countryStorage = countryStorage;
-            this.cityStorage = cityStorage;
-            this.regionStorage = regionStorage;
         }
 
         /// <summary>
-        /// Returns list of all countries
+        /// Returns list of all countries.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of country models.</returns>
         [HttpGet("get-countries")]
-        [AllowAnonymous]
         public async Task<List<CountryModel>> GetCountries()
         {
-            var countries = await countryStorage.GetCountries();
-
-            return countries;
+            try
+            {
+                return await countryStorage.GetCountries();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Невозможно извлечь страны из-за ошибки: {e.Message}");
+            }
         }
-
+        
         /// <summary>
-        /// Returns country with the given name
+        /// Returns country with the given name.
         /// </summary>
-        /// <param name="name">Given name of the country</param>
-        /// <returns></returns>
+        /// <param name="name">Given name of the country.</param>
+        /// <returns>Country model.</returns>
         [HttpGet("get-country")]
-        [AllowAnonymous]
         public async Task<CountryModel> GetCountryByName([Required] string name)
         {
-            var country = await countryStorage.GetCountryByName(name);
-
-            return country;
+            try
+            {
+                return await countryStorage.GetCountryByName(name);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Невозможно найти страну из-за ошибки: {e.Message}");
+            }
         }
 
         /// <summary>
-        /// Adds new country or updates existing one
+        /// Adds new country or updates existing one.
         /// </summary>
-        /// <param name="country">Contains given information about country</param>
+        /// <param name="country">Contains given information about country.</param>
         /// <returns></returns>
         [HttpPost("add-country")]
-        [AllowAnonymous]
         public async Task AddCountry([FromBody]CountryModel country)
         {
-            // Check if city already exists
-            var city = await cityStorage.GetCityByName(country.Capital);
-            
-            if (city == null)
+            try
             {
-                // City not found, add it and get Id
-                await cityStorage.AddCity(new City { Name = country.Capital });
-
-                city = await cityStorage.GetCityByName(country.Capital);
+                await countryStorage.AddCountry(country);
             }
-            
-            // Check if region already exists
-            var region = await regionStorage.GetRegionByName(country.Region);
-
-            if (region == null)
+            catch (Exception e)
             {
-                // Region not found, add it and get Id
-                await regionStorage.AddRegion(new Region { Name = country.Region });
-
-                region = await regionStorage.GetRegionByName(country.Region);
-            }
-            
-            // Check if country with the given code already exists
-            var countryExtracted = await countryStorage.GetCountryByCode(country.Code);
-
-            if (countryExtracted == null)
-            {
-                // Country by code not found, add new country
-                await countryStorage.AddCountry(new Country
-                {
-                    Name = country.Name,
-                    Code = country.Code,
-                    Square = country.Square,
-                    Population = country.Population,
-                    RegionId = region.Id,
-                    CapitalId = city.Id,
-                });
-            }
-            else
-            {
-                // Update existing country
-                await countryStorage.UpdateCountry(countryExtracted, country, region, city);
+                throw new Exception($"Невозможно добавить страну из-за ошибки: {e.Message}");
             }
         }
     }

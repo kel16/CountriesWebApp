@@ -8,20 +8,29 @@ using System.Threading.Tasks;
 
 namespace CountriesWebApp.Data.Repositories
 {
+    /// <summary>
+    /// Contains methods:
+    /// <para><see cref="GetRegionByName(string)"/></para>
+    /// <para><see cref="AddRegion(Region)"/></para>
+    /// </summary>
     public class RegionRepository : IRegionRepository
     {
         private readonly DataContext context;
 
+        /// <summary>
+        /// Provides Dependency Injection.
+        /// </summary>
+        /// <param name="context">Aplication database context.</param>
         public RegionRepository(DataContext context)
         {
             this.context = context;
         }
 
         /// <summary>
-        /// Returns region with the given name
+        /// Returns region with the given name.
         /// </summary>
-        /// <param name="regionName">Given name of the region</param>
-        /// <returns></returns>
+        /// <param name="regionName">Given name of the region.</param>
+        /// <returns>Region entity.</returns>
         public async Task<Region> GetRegionByName(string regionName)
         {
             var region = from r in context.Regions
@@ -35,14 +44,20 @@ namespace CountriesWebApp.Data.Repositories
             return region.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Saves region.
+        /// </summary>
+        /// <param name="region">Region entity.</param>
+        /// <returns></returns>
         public async Task AddRegion(Region region)
         {
-            await context.Regions.AddAsync(region);
-        }
+            if (region == null)
+            {
+                throw new ArgumentNullException("Region");
+            }
 
-        public Task SaveChangesAsync()
-        {
-            return context.SaveChangesAsync();
+            await context.Regions.AddAsync(region);
+            await context.SaveChangesAsync();
         }
     }
 }

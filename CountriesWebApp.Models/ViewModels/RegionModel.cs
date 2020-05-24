@@ -7,28 +7,19 @@ using System.Text;
 namespace CountriesWebApp.Models.ViewModels
 {
     /// <summary>
-    /// Класс, описывающий сущность региона
+    /// Describes region view model.
     /// </summary>
     public class RegionModel
     {
+        /// <summary>
+        /// Primary key.
+        /// </summary>
         public int? Id { get; set; }
 
         /// <summary>
-        /// Название региона
+        /// Name of the region.
         /// </summary>
         [Required(ErrorMessage = "Для региона должно быть указано название")]
         public string Name { get; set; }
-
-        /*public Region GetRegion()
-        {
-            return new Region()
-            {
-                Name = this.Name,
-            };
-        }
-
-        public RegionModel()
-        {
-        }*/
     }
 }

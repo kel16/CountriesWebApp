@@ -20,7 +20,6 @@ namespace CountriesWebApp
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseWebRoot("ClientApp/public");
+                .UseStartup<Startup>();
     }
 }
