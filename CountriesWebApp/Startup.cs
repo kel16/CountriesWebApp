@@ -33,7 +33,7 @@ namespace CountriesWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(
@@ -47,7 +47,7 @@ namespace CountriesWebApp
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "ClientApp/public";
             });
 
             services.AddScoped<IRegionRepository, RegionRepository>();
@@ -73,20 +73,10 @@ namespace CountriesWebApp
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Countries Web Application V1");
             });
 
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:9000").AllowAnyHeader().AllowAnyMethod());
             app.UseHttpsRedirection();
-
-            app.UseAuthentication();
-
-            //app.UseMvc();
             app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}");
-                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Blog", action = "Index" });
-            });
+            app.UseSpaStaticFiles();
         }
     }
 }

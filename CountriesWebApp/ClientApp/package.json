@@ -1,21 +1,55 @@
 {
-  "name": "CountriesWebApp",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "bootstrap": "^3.4.1",
-    "react": "^16.0.0",
-    "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.0.0",
-    "react-router-bootstrap": "^0.24.4",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17",
-    "rimraf": "^2.6.2"
-  },
-  "scripts": {
-    "start": "rimraf ./build && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+	"name": "CountryWebApp",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@material-ui/core": "^4.3.3",
+		"@material-ui/icons": "^4.2.1",
+		"axios": "^0.19.0",
+		"express": "^4.17.1",
+		"final-form": "^4.19.1",
+		"react": "^16.9.0",
+		"react-dom": "^16.9.0",
+		"react-final-form": "^6.4.0",
+		"react-redux": "^7.1.1",
+		"react-router-dom": "^5.0.1",
+		"redux": "^4.0.4",
+		"redux-thunk": "^2.3.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.6.2",
+		"@babel/polyfill": "^7.6.0",
+		"@babel/preset-env": "^7.6.2",
+		"@babel/preset-react": "^7.0.0",
+		"babel-loader": "^8.0.6",
+		"webpack": "^4.41.0",
+		"webpack-cli": "^3.3.9",
+		"webpack-dev-server": "^3.8.1"
+	},
+	"babel": {
+		"presets": [
+			"@babel/preset-env",
+			"@babel/preset-react"
+		]
+	},
+	"scripts": {
+		"start": "node server/app",
+		"dev": "webpack-dev-server",
+		"build": "webpack --mode production"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
 }

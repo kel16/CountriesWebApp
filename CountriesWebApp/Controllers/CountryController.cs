@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CountriesWebApp.Controllers
 {
@@ -32,6 +33,7 @@ namespace CountriesWebApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("get-countries")]
+        [AllowAnonymous]
         public async Task<List<CountryModel>> GetCountries()
         {
             var countries = await countryStorage.GetCountries();
@@ -45,6 +47,7 @@ namespace CountriesWebApp.Controllers
         /// <param name="name">Given name of the country</param>
         /// <returns></returns>
         [HttpGet("get-country")]
+        [AllowAnonymous]
         public async Task<CountryModel> GetCountryByName([Required] string name)
         {
             var country = await countryStorage.GetCountryByName(name);
@@ -58,6 +61,7 @@ namespace CountriesWebApp.Controllers
         /// <param name="country">Contains given information about country</param>
         /// <returns></returns>
         [HttpPost("add-country")]
+        [AllowAnonymous]
         public async Task AddCountry([FromBody]CountryModel country)
         {
             // Check if city already exists
