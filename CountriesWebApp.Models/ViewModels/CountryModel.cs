@@ -23,10 +23,10 @@ namespace CountriesWebApp.Models.ViewModels
         public string Code { get; set; }
 
         /// <summary>
-        /// Square of country.
+        /// Area of country.
         /// </summary>
-        [Required(ErrorMessage = "Country's square must be specified")]
-        public double Square { get; set; }
+        [Required(ErrorMessage = "Country's area must be specified")]
+        public double Area { get; set; }
 
         /// <summary>
         /// Country population.
@@ -43,13 +43,11 @@ namespace CountriesWebApp.Models.ViewModels
         /// <summary>
         /// Name of the region.
         /// </summary>
-        [Required(ErrorMessage = "Country region's name must be specified")]
         public string Region { get; set; }
 
         /// <summary>
         /// Name of the capital.
         /// </summary>
-        [Required(ErrorMessage = "Country capital's name must be specified")]
         public string Capital { get; set; }
     }
 }

@@ -16,22 +16,22 @@ namespace CountriesWebApp.Domain.Storages.IStorages
     public interface ICountryStorage
     {
         /// <summary>
-        /// Returns full list of countries
+        /// Returns full list of countries.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of country models.</returns>
         Task<List<CountryModel>> GetCountries();
 
         /// <summary>
-        /// Returns country model with the given name
+        /// Returns country model with the given name.
         /// </summary>
-        /// <param name="countryName"></param>
-        /// <returns></returns>
+        /// <param name="countryName">Country name.</param>
+        /// <returns>Country model.</returns>
         Task<CountryModel> GetCountryByName(string countryName);
 
         /// <summary>
         /// Adds new country.
         /// </summary>
-        /// <param name="country">Country model.</param>
+        /// <param name="countryModel">Country model.</param>
         /// <returns></returns>
         Task AddCountry(CountryModel countryModel);
     }

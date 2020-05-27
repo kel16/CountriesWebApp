@@ -53,12 +53,12 @@ namespace CountriesWebApp.Data
                 .HasOne(e => e.Capital)
                 .WithMany()
                 .HasForeignKey(e => e.CapitalId)
-                .IsRequired(true);
+                .IsRequired(false);
             modelBuilder.Entity<Country>()
                 .HasOne(e => e.Region)
                 .WithMany()
                 .HasForeignKey(e => e.RegionId)
-                .IsRequired(true);
+                .IsRequired(false);
         }
     }
 }

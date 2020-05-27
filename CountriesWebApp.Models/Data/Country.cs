@@ -25,9 +25,10 @@ namespace CountriesWebApp.Models.Data
         /// </summary>
         public string Code { get; set; }
         /// <summary>
-        /// Country square.
+        /// Country area.
         /// </summary>
-        public double Square { get; set; }
+        public double Area { get; set; }
+
         /// <summary>
         /// Country population.
         /// </summary>
@@ -36,13 +37,14 @@ namespace CountriesWebApp.Models.Data
         /// <summary>
         /// Foreign key for the city.
         /// </summary>
-        public int CapitalId { get; set; }
+        public int? CapitalId { get; set; }
         [ForeignKey("CapitalId")]
         public City Capital { get; set; }
+
         /// <summary>
         /// Foreign key for the region.
         /// </summary>
-        public int RegionId { get; set; }
+        public int? RegionId { get; set; }
         [ForeignKey("RegionId")]
         public Region Region { get; set; }
     }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CountriesWebApp.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,10 +41,10 @@ namespace CountriesWebApp.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Code = table.Column<string>(nullable: true),
-                    Square = table.Column<double>(nullable: false),
+                    Area = table.Column<double>(nullable: false),
                     Population = table.Column<int>(nullable: false),
-                    CapitalId = table.Column<int>(nullable: false),
-                    RegionId = table.Column<int>(nullable: false)
+                    CapitalId = table.Column<int>(nullable: true),
+                    RegionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,13 +54,13 @@ namespace CountriesWebApp.Data.Migrations
                         column: x => x.CapitalId,
                         principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Countries_Regions_RegionId",
                         column: x => x.RegionId,
                         principalTable: "Regions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

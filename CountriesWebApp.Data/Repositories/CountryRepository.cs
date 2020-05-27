@@ -41,7 +41,7 @@ namespace CountriesWebApp.Data.Repositories
                        Id = c.Id,
                        Name = c.Name,
                        Code = c.Code,
-                       Square = c.Square,
+                       Area = c.Area,
                        Population = c.Population,
                        Region = c.Region.Name,
                        Capital = c.Capital.Name,
@@ -64,7 +64,7 @@ namespace CountriesWebApp.Data.Repositories
                                Id = c.Id,
                                Name = c.Name,
                                Code = c.Code,
-                               Square = c.Square,
+                               Area = c.Area,
                                Population = c.Population,
                                Region = c.Region.Name,
                                Capital = c.Capital.Name,
@@ -81,13 +81,13 @@ namespace CountriesWebApp.Data.Repositories
         public async Task<Country> GetCountryByCode(string countryCode)
         {
             var country = from c in context.Countries
-                          where c.Code == countryCode
+                          where c.Code.ToUpper() == countryCode.ToUpper()
                           select new Country
                           {
                               Id = c.Id,
                               Name = c.Name,
                               Code = c.Code,
-                              Square = c.Square,
+                              Area = c.Area,
                               Population = c.Population,
                               Region = c.Region,
                               Capital = c.Capital,
@@ -123,14 +123,6 @@ namespace CountriesWebApp.Data.Repositories
             {
                 throw new ArgumentNullException("Country");
             }
-
-            /*country.Name = newCountry.Name;
-            country.Square = newCountry.Square;
-            country.Population = newCountry.Population;
-            country.Region = newCountry.Region;
-            country.Capital = newCountry.Capital;*/
-            //country.RegionId = newCountry.Region.Id;
-            //country.CapitalId = newCountry.Capital.Id;
 
             context.Countries.Update(country);
             context.SaveChanges();

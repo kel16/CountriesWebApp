@@ -36,14 +36,10 @@ namespace CountriesWebApp
                 try
                 {
                     if (!context.Cities.Any())
-                        DataSeeder.InitializeRegions(context);
+                    {
+                        DataSeeder.InitData(context);
+                    }
                     
-                    if (!context.Cities.Any())
-                        DataSeeder.InitializeCities(context);
-
-                    if (!context.Countries.Any())
-                        DataSeeder.InitializeCountries(context);
-
                     context.Database.CommitTransaction();
                 }
                 catch (Exception)

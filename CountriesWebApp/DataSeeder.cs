@@ -10,108 +10,117 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using System.Net;
 
 namespace CountriesWebApp
 {
+    /// <summary>
+    /// Initializes database with data.
+    /// </summary>
     public class DataSeeder
     {
-        public static List<string> RegionsInfo = new List<string>()
+        /// <summary>
+        /// Country model requested from restcountries.eu
+        /// </summary>
+        private class CountryRequestModel
         {
-            "Australia",
-            "Asia",
-            "Africa",
-            "Europe",
-            "Oceania",
-            "South America"
-        };
+            /// <summary>
+            /// Name of the country.
+            /// </summary>
+            public string name { get; set; }
 
-        public static List<string> CitiesInfo = new List<string>()
-        {
-            "Melbourn",
-            "Hong Kong",
-            "Peking",
-            "Dresden",
-            "Berlin",
-            "Washington"
-        };
+            /// <summary>
+            /// Country code.
+            /// </summary>
+            public string alpha2Code { get; set; }
 
-        public static void InitializeRegions(DataContext context)
-        {
-            var regionList = new List<Region>();
+            /// <summary>
+            /// The capital of the country.
+            /// </summary>
+            public string capital { get; set; }
 
-            for (int count = 0; count < RegionsInfo.Count; count++)
-            {
-                regionList.Add(new Region()
-                {
-                    Id = count + 1,
-                    Name = RegionsInfo[count]
-                });
-            }
+            /// <summary>
+            /// The region of the country.
+            /// </summary>
+            public string region { get; set; }
 
-            foreach (var region in regionList)
-            {
-                context.Regions.Add(region);
-            }
+            /// <summary>
+            /// Country population.
+            /// </summary>
+            public int population { get; set; }
 
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Regions ON"); // crucial for setting explicit id
-            context.SaveChanges();
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Regions OFF");
+            /// <summary>
+            /// Country area.
+            /// </summary>
+            public double area { get; set; }
         }
 
-        public static void InitializeCities(DataContext context)
+        /// <summary>
+        /// Loads data from resource.
+        /// </summary>
+        private static List<CountryRequestModel> LoadData()
         {
-            var cityList = new List<City>();
+            string link = "https://restcountries.eu/rest/v2/all?fields=name;region;capital;alpha2Code;area;population";
 
-            for (int count = 0; count < CitiesInfo.Count; count++)
-            {
-                cityList.Add(new City()
-                {
-                    Id = count + 1,
-                    Name = CitiesInfo[count]
-                });
-            }
+            WebRequest requestObject = WebRequest.Create(link);
+            WebResponse responseObject = requestObject.GetResponse();
+            StreamReader reader = new StreamReader(responseObject.GetResponseStream());
+            string jsonObject = reader.ReadToEnd();
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<CountryRequestModel>>(jsonObject);
+        }
 
-            foreach (var city in cityList)
-            {
-                context.Cities.Add(city);
-            }
+        /// <summary>
+        /// Inserts into database new regions, cities and countries.
+        /// </summary>
+        /// <param name="context">Application database context.</param>
+        public static void InitData(DataContext context)
+        {
+            int cityCount = 0;                                  // Region's and city's current IDs.
+            Country newCountry;                                 // Instance of country that is being added.
+            Region matchedRegion;                               // Instance of region that matches country.
+            List<CountryRequestModel> countries = LoadData();   // Loads data from resource.
 
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Cities ON");
-            context.SaveChanges();
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Cities OFF");
-        }
-
-        public static void InitializeCountries(DataContext context)
-        {
-            var countryList = new List<Country>()
+            // context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Regions ON");
+            foreach (CountryRequestModel country in countries)
             {
-                new Country
+                newCountry = new Country()
                 {
-                    Name = "Germany",
-                    Code = "de",
-                    Square = 2656.0,
-                    Population = 5000,
-                    CapitalId = 5,
-                    RegionId = 4
-                },
+                    Name = country.name,
+                    Code = country.alpha2Code,
+                    Population = country.population,
+                    Area = country.area,
+                };
 
-                new Country
+                if (country.region != "")
                 {
-                    Name = "China",
-                    Code = "cn",
-                    Square = 5769.3,
-                    Population = 999,
-                    CapitalId = 3,
-                    RegionId = 2
+                    matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.region.Trim().ToUpper()).FirstOrDefault();
+
+                    if (country.capital != "")
+                    {
+                        context.Cities.Add(new City() { Id = ++cityCount, Name = country.capital });
+
+                        newCountry.CapitalId = cityCount;
+                    }
+
+                    if (matchedRegion == null)
+                    {
+                        context.Regions.Add(new Region() { Name = country.region });
+                        context.SaveChanges();
+                        List<Region> regions = context.Regions.Select(r => new Region() { Id = r.Id, Name = r.Name }).ToList();
+                        matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.region.ToUpper()).FirstOrDefault();
+                    }
+
+                    newCountry.RegionId = matchedRegion.Id;
                 }
+
+                context.Countries.Add(newCountry);
             };
 
-            foreach (var country in countryList)
-            {
-                context.Countries.Add(country);
-            }
-
             context.SaveChanges();
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Cities OFF");
+            // context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Regions OFF");
         }
     }
 }

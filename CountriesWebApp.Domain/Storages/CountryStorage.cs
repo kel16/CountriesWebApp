@@ -21,11 +21,13 @@ namespace CountriesWebApp.Domain.Storages
         private readonly ICountryRepository countryRepository;
         private readonly ICityRepository cityRepository;
         private readonly IRegionRepository regionRepository;
-
+        
         /// <summary>
         /// Provides dependency injection.
         /// </summary>
-        /// <param name="countryRepository">country repository</param>
+        /// <param name="countryRepository">Country repository.</param>
+        /// <param name="cityRepository">City repository.</param>
+        /// <param name="regionRepository">Region repository.</param>
         public CountryStorage(ICountryRepository countryRepository, ICityRepository cityRepository, IRegionRepository regionRepository)
         {
             this.countryRepository = countryRepository;
@@ -55,7 +57,7 @@ namespace CountriesWebApp.Domain.Storages
         /// <summary>
         /// Adds new country.
         /// </summary>
-        /// <param name="country">Country model.</param>
+        /// <param name="countryModel">Country view model.</param>
         /// <returns></returns>
         public async Task AddCountry(CountryModel countryModel)
         {
@@ -86,7 +88,7 @@ namespace CountriesWebApp.Domain.Storages
             {
                 Name = countryModel.Name,
                 Code = countryModel.Code,
-                Square = countryModel.Square,
+                Area = countryModel.Area,
                 Population = countryModel.Population,
                 RegionId = region.Id,
                 CapitalId = city.Id,
@@ -98,12 +100,29 @@ namespace CountriesWebApp.Domain.Storages
             if (countryExtracted == null)
             {
                 // Country by code not found, add new country.
-                await countryRepository.AddCountry(countryNew);
+                await countryRepository.AddCountry(new Country
+                {
+                    Name = countryModel.Name,
+                    Code = countryModel.Code,
+                    Area = countryModel.Area,
+                    Population = countryModel.Population,
+                    RegionId = region.Id,
+                    CapitalId = city.Id,
+                });
             }
             else
             {
                 // Update existing country.
-                await countryRepository.UpdateCountry(countryNew);
+                countryExtracted.Name = countryModel.Name;
+                countryExtracted.Code = countryModel.Code;
+                countryExtracted.Area = countryModel.Area;
+                countryExtracted.Population = countryModel.Population;
+                countryExtracted.RegionId = region.Id;
+                countryExtracted.CapitalId = city.Id;
+                countryExtracted.Region = region;
+                countryExtracted.Capital = city;
+
+                await countryRepository.UpdateCountry(countryExtracted);
             }
         }
     }
