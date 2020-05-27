@@ -31,15 +31,17 @@ namespace CountriesWebApp.Controllers
         }
 
         /// <summary>
-        /// Returns list of all countries.
+        /// Returns list of countries.
         /// </summary>
+        /// <param name="page">Current page number.</param>
+        /// <param name="quantity">Number of items per page.</param>
         /// <returns>List of country models.</returns>
         [HttpGet("get-countries")]
-        public async Task<List<CountryModel>> GetCountries()
+        public ListCountryModels GetCountries(int page = 1, int quantity = 10)
         {
             try
             {
-                return await countryStorage.GetCountries();
+                return countryStorage.GetCountries(page, quantity);
             }
             catch (Exception e)
             {

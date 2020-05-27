@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import { TextField } from '../theme'
 import Add from '../add/Add'
+import Update from '../update/Update'
 
 const Search = () => {
 	const [loading, setLoading] = React.useState(true)
@@ -13,6 +14,7 @@ const Search = () => {
 	const [searchName, setSearchName] = React.useState('')
 
 	const [openAdd, setOpenAdd] = React.useState(false)
+	const [openUpdate, setOpenUpdate] = React.useState(false)
 
 	const loadInfo = (countryName) => {
 		setLoading(true)
@@ -41,10 +43,15 @@ const Search = () => {
 		setOpenAdd(!openAdd)
 	}
 
+	const toggleUpdate = () => {
+		setOpenUpdate(!openUpdate)
+	}
+
 	const required = (value) => (value ? undefined : '*required field*')
 
 	const onSubmit = (values) => {
 		setOpenAdd(false)
+		setOpenUpdate(false)
 		setSearchName(values.name)
 		loadInfo(values.name)
 	}
@@ -86,13 +93,28 @@ const Search = () => {
 					)
 				) : info ? (
 					<div>
-						<Typography variant='h4'>Результат:</Typography>
-						<Typography>Код страны: {info.code}</Typography>
-						<Typography>Название: {info.name}</Typography>
-						<Typography>Столица: {info.capital}</Typography>
-						<Typography>Регион: {info.region}</Typography>
-						<Typography>Площадь: {info.square}</Typography>
-						<Typography>Население: {info.population}</Typography>
+						<div>
+							<Typography variant='h4'>Результат:</Typography>
+							{Object.entries(info).map(([key, value]) => (
+								<>
+									<Typography key={key}>
+										{key}: {value}
+									</Typography>
+								</>
+							))}
+						</div>
+						<div>
+							<Typography variant='h4' gutterBottom>
+								Хотите внести изменения?
+							</Typography>
+							<Button
+								color='secondary'
+								variant='contained'
+								onClick={() => toggleUpdate()}>
+								{openUpdate ? 'Нет' : 'Да'}
+							</Button>
+							{openUpdate ? <Update country={info} /> : <></>}
+						</div>
 					</div>
 				) : (
 					<div>

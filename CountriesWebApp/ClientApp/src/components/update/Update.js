@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import { TextField } from '../theme'
 
-const Add = ({ countryName }) => {
+const Update = ({ country }) => {
 	const required = (value) => (value ? undefined : '*required field*')
 	const [submitted, setSubmitted] = React.useState(false)
 
@@ -32,7 +32,12 @@ const Add = ({ countryName }) => {
 		<Form
 			onSubmit={onSubmit}
 			initialValues={{
-				name: countryName,
+				name: country.code,
+				code: country.code,
+				area: country.area,
+				population: country.population,
+				region: country.region,
+				capital: country.capital,
 			}}
 			render={({ handleSubmit, form, submitting, pristine, values }) => (
 				<form onSubmit={handleSubmit}>
@@ -40,19 +45,19 @@ const Add = ({ countryName }) => {
 						<Field
 							name='name'
 							component={TextField}
+							validate={required}
 							type='text'
 							label='Название страны'
-							disabled
+							warning='Поле обязательно для заполнения'
 						/>
 					</div>
 					<div>
 						<Field
 							name='code'
 							component={TextField}
-							validate={required}
 							type='text'
 							label='Код страны'
-							warning='Поле обязательно для заполнения'
+							disabled
 						/>
 					</div>
 					<div>
@@ -115,4 +120,4 @@ const Add = ({ countryName }) => {
 	)
 }
 
-export default Add
+export default Update

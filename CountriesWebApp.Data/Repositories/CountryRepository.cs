@@ -33,10 +33,14 @@ namespace CountriesWebApp.Data.Repositories
         /// <summary>
         /// Returns list of countries.
         /// </summary>
-        /// <returns>List country view models</returns>
-        public async Task<List<CountryModel>> GetCountries()
+        /// <param name="page">Current page number.</param>
+        /// <param name="quantity">Number of items per page.</param>
+        /// <returns>List of country models.</returns>
+        public ListCountryModels GetCountries(int page, int quantity)
         {
             var countries = context.Countries
+                   .Skip((page - 1) * quantity)
+                   .Take(quantity)
                    .Select(c => new CountryModel {
                        Id = c.Id,
                        Name = c.Name,
@@ -45,9 +49,9 @@ namespace CountriesWebApp.Data.Repositories
                        Population = c.Population,
                        Region = c.Region.Name,
                        Capital = c.Capital.Name,
-                   }).ToListAsync();
+                   }).OrderBy(c => c.Id).ToList();
 
-            return await countries;
+            return new ListCountryModels() { Countries = countries, Total = context.Countries.Count() };
         }
 
         /// <summary>

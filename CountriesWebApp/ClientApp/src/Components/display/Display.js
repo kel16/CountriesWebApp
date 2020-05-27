@@ -1,64 +1,119 @@
-import React from 'react'
-import { Container, Button, Typography } from '@material-ui/core'
-import { useStyles } from './useStyles'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+	TableFooter,
+	TablePagination,
+	Paper,
+	Typography,
+	CircularProgress,
+} from '@material-ui/core'
 import axios from 'axios'
 
-const Home = () => {
+import { useStyles, StyledTableCell, StyledTableRow } from './useStyles'
+import TablePaginationActions from './TablePaginationActions'
+
+const Display = () => {
 	const classes = useStyles()
+	const [page, setPage] = React.useState(0)
+	const [total, setTotal] = React.useState(1)
+	const [items, setItems] = React.useState({})
 	const [loading, setLoading] = React.useState(true)
-	const [error, setError] = React.useState(false)
-	const [items, setItems] = React.useState([])
+	const rowsPerPage = 20
+
+	const emptyRows =
+		rowsPerPage - Math.min(rowsPerPage, total - page * rowsPerPage)
+
+	function handleChangePage(event, newPage) {
+		setPage(newPage)
+	}
+
+	useEffect(() => {
+		loadItems()
+	}, [page])
 
 	const loadItems = () => {
 		setLoading(true)
-		setError(false)
-		setItems([])
 		axios
-			.get(`/api/Countries/get-countries`)
+			.get(
+				`/api/Countries/get-countries?page=${page + 1}&quantity=${rowsPerPage}`
+			)
 			.then(function (response) {
 				if (response.status != 200) {
-					setLoading(false)
-					setError(true)
+					throw Error(`Response status: ${response.status}`)
 				} else {
-					setItems(response.data)
+					setTotal(response.data.total)
+					setItems(response.data.countries)
 					setLoading(false)
 				}
-			})
-			.catch(function (error) {
-				console.log(error)
 			})
 	}
 
 	return (
-		<Container style={{ textAlign: 'center' }}>
-			<Button variant='outlined' onClick={() => loadItems()}>
-				Вывести
-			</Button>
-			<div className={classes.content}>
+		<Paper className={classes.paperTable}>
+			<Table className={classes.table} aria-label='customized table'>
 				{loading ? (
-					error ? (
-						<Typography>Возникла ошибка</Typography>
-					) : (
-						<></>
-					)
-				) : items.length > 0 ? (
-					items.map((row) => (
-						<div className={classes.nested} key={row.code}>
-							<Typography>Код страны: {row.code}</Typography>
-							<Typography>Название: {row.name}</Typography>
-							<Typography>Столица: {row.capital}</Typography>
-							<Typography>Регион: {row.region}</Typography>
-							<Typography>Площадь: {row.square}</Typography>
-							<Typography>Население: {row.population}</Typography>
-						</div>
-					))
+					<>
+						<TableHead>
+							<TableRow>
+								<StyledTableCell></StyledTableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							<StyledTableRow>
+								<StyledTableCell component='th' scope='row'>
+									<CircularProgress />
+								</StyledTableCell>
+							</StyledTableRow>
+						</TableBody>
+					</>
 				) : (
-					<Typography>В БД нет стран</Typography>
+					<>
+						<TableHead>
+							<TableRow>
+								{Object.keys(items[0]).map((value) => (
+									<StyledTableCell key={value}>
+										<Typography>{value}</Typography>
+									</StyledTableCell>
+								))}
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{items.map((row, index) => (
+								<StyledTableRow key={index}>
+									{Object.entries(row).map(([key, value]) => (
+										<StyledTableCell component='th' scope='row' key={key}>
+											<Typography>{value}</Typography>
+										</StyledTableCell>
+									))}
+								</StyledTableRow>
+							))}
+							{emptyRows > 0 && (
+								<TableRow style={{ height: 48 * emptyRows }}>
+									<TableCell colSpan={6} />
+								</TableRow>
+							)}
+						</TableBody>
+						<TableFooter>
+							<TableRow>
+								<TablePagination
+									count={total}
+									rowsPerPage={rowsPerPage}
+									rowsPerPageOptions={[]}
+									page={page}
+									onChangePage={handleChangePage}
+									ActionsComponent={TablePaginationActions}
+								/>
+							</TableRow>
+						</TableFooter>
+					</>
 				)}
-			</div>
-		</Container>
+			</Table>
+		</Paper>
 	)
 }
 
-export default Home
+export default Display

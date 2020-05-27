@@ -36,12 +36,14 @@ namespace CountriesWebApp.Domain.Storages
         }
 
         /// <summary>
-        /// Returns full list of countries.
+        /// Returns list of countries.
         /// </summary>
+        /// <param name="page">Current page number.</param>
+        /// <param name="quantity">Number of items per page.</param>
         /// <returns>List of country models.</returns>
-        public async Task<List<CountryModel>> GetCountries()
+        public ListCountryModels GetCountries(int page, int quantity)
         {
-            return await countryRepository.GetCountries();
+            return countryRepository.GetCountries(page, quantity);
         }
 
         /// <summary>

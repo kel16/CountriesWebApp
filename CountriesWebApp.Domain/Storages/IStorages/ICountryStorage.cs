@@ -16,10 +16,12 @@ namespace CountriesWebApp.Domain.Storages.IStorages
     public interface ICountryStorage
     {
         /// <summary>
-        /// Returns full list of countries.
+        /// Returns list of countries.
         /// </summary>
+        /// <param name="page">Current page number.</param>
+        /// <param name="quantity">Number of items per page.</param>
         /// <returns>List of country models.</returns>
-        Task<List<CountryModel>> GetCountries();
+        ListCountryModels GetCountries(int page, int quantity);
 
         /// <summary>
         /// Returns country model with the given name.

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
 namespace CountriesWebApp.Models.ViewModels
@@ -49,5 +50,21 @@ namespace CountriesWebApp.Models.ViewModels
         /// Name of the capital.
         /// </summary>
         public string Capital { get; set; }
+    }
+
+    /// <summary>
+    /// Describes list of country view models.
+    /// </summary>
+    public class ListCountryModels
+    {
+        /// <summary>
+        /// List of country view models.
+        /// </summary>
+        public List<CountryModel> Countries { get; set; }
+
+        /// <summary>
+        /// Total number of instances in the list.
+        /// </summary>
+        public int Total { get; set; }
     }
 }
