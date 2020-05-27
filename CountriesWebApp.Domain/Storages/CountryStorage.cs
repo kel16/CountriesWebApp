@@ -85,17 +85,6 @@ namespace CountriesWebApp.Domain.Storages
                 region = await regionRepository.GetRegionByName(countryModel.Region);
             }
 
-            // Create entity for country we want to add / update.
-            var countryNew = new Country
-            {
-                Name = countryModel.Name,
-                Code = countryModel.Code,
-                Area = countryModel.Area,
-                Population = countryModel.Population,
-                RegionId = region.Id,
-                CapitalId = city.Id,
-            };
-
             // Check if country with the provided code already exists.
             var countryExtracted = await countryRepository.GetCountryByCode(countryModel.Code);
 

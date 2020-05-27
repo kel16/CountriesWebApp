@@ -103,7 +103,6 @@ namespace CountriesWebApp
             List<CountryRequestModel> countries = LoadData();   // Loads data from resource.
 
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Cities ON");
-            // context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Regions ON");
             foreach (CountryRequestModel country in countries)
             {
                 newCountry = new Country()
@@ -141,7 +140,6 @@ namespace CountriesWebApp
 
             context.SaveChanges();
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Cities OFF");
-            // context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Regions OFF");
         }
     }
 }

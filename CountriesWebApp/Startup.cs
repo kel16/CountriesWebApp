@@ -69,7 +69,6 @@ namespace CountriesWebApp
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Countries Web Application V1");
             });
 
-            // app.UseCors(builder => builder.WithOrigins("http://localhost:9000").AllowAnyHeader().AllowAnyMethod()); // For frontend dev
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseMvc(routes =>
@@ -77,7 +76,6 @@ namespace CountriesWebApp
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}");
-                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
             app.UseSpaStaticFiles();
         }
