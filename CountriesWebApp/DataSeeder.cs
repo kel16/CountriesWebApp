@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Net;
+using System.Globalization;
 
 namespace CountriesWebApp
 {
@@ -28,32 +29,52 @@ namespace CountriesWebApp
             /// <summary>
             /// Name of the country.
             /// </summary>
-            public string name { get; set; }
+            public string Name { get; set; }
 
             /// <summary>
             /// Country code.
             /// </summary>
-            public string alpha2Code { get; set; }
+            public string Alpha2Code { get; set; }
 
             /// <summary>
             /// The capital of the country.
             /// </summary>
-            public string capital { get; set; }
+            public string Capital { get; set; }
 
             /// <summary>
             /// The region of the country.
             /// </summary>
-            public string region { get; set; }
+            public string Region { get; set; }
 
             /// <summary>
             /// Country population.
             /// </summary>
-            public int population { get; set; }
+            public int Population { get; set; }
 
             /// <summary>
             /// Country area.
             /// </summary>
-            public double area { get; set; }
+            public string Area { get; set; }
+
+            /// <summary>
+            /// Converted area.
+            /// </summary>
+            public double? FormattedArea
+            {
+                get
+                {
+                    float parsed;
+                    NumberStyles style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent;
+                    CultureInfo culture = CultureInfo.InvariantCulture;
+
+                    if (!Single.TryParse(Area, style, culture, out parsed))
+                    {
+                        return null;
+                    }
+
+                    return Convert.ToDouble(parsed);
+                }
+            }
         }
 
         /// <summary>
@@ -87,29 +108,29 @@ namespace CountriesWebApp
             {
                 newCountry = new Country()
                 {
-                    Name = country.name,
-                    Code = country.alpha2Code,
-                    Population = country.population,
-                    Area = country.area,
+                    Name = country.Name,
+                    Code = country.Alpha2Code,
+                    Population = country.Population,
+                    Area = country.FormattedArea,
                 };
 
-                if (country.region != "")
+                if (country.Region != "")
                 {
-                    matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.region.Trim().ToUpper()).FirstOrDefault();
+                    matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.Region.Trim().ToUpper()).FirstOrDefault();
 
-                    if (country.capital != "")
+                    if (country.Capital != "")
                     {
-                        context.Cities.Add(new City() { Id = ++cityCount, Name = country.capital });
+                        context.Cities.Add(new City() { Id = ++cityCount, Name = country.Capital });
 
                         newCountry.CapitalId = cityCount;
                     }
 
                     if (matchedRegion == null)
                     {
-                        context.Regions.Add(new Region() { Name = country.region });
+                        context.Regions.Add(new Region() { Name = country.Region });
                         context.SaveChanges();
                         List<Region> regions = context.Regions.Select(r => new Region() { Id = r.Id, Name = r.Name }).ToList();
-                        matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.region.ToUpper()).FirstOrDefault();
+                        matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.Region.ToUpper()).FirstOrDefault();
                     }
 
                     newCountry.RegionId = matchedRegion.Id;

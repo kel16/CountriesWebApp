@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CountriesWebApp.Data.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,7 +41,7 @@ namespace CountriesWebApp.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Code = table.Column<string>(nullable: true),
-                    Area = table.Column<double>(nullable: false),
+                    Area = table.Column<double>(nullable: true),
                     Population = table.Column<int>(nullable: false),
                     CapitalId = table.Column<int>(nullable: true),
                     RegionId = table.Column<int>(nullable: true)

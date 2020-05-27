@@ -38,7 +38,7 @@ namespace CountriesWebApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area");
+                    b.Property<double?>("Area");
 
                     b.Property<int?>("CapitalId");
 

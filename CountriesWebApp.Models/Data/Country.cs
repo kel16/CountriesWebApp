@@ -27,7 +27,7 @@ namespace CountriesWebApp.Models.Data
         /// <summary>
         /// Country area.
         /// </summary>
-        public double Area { get; set; }
+        public double? Area { get; set; }
 
         /// <summary>
         /// Country population.

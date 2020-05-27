@@ -18,28 +18,27 @@ namespace CountriesWebApp.Models.ViewModels
         public int? Id { get; set; }
 
         /// <summary>
+        /// Area of country.
+        /// </summary>
+        public double? Area { get; set; }
+
+        /// <summary>
         /// Country code - string.
         /// </summary>
         [Required(ErrorMessage = "Country's code must be specified")]
         public string Code { get; set; }
 
         /// <summary>
-        /// Area of country.
+        /// Name of the country.
         /// </summary>
-        [Required(ErrorMessage = "Country's area must be specified")]
-        public double Area { get; set; }
+        [Required(ErrorMessage = "Country's name must be specified")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Country population.
         /// </summary>
         [Required(ErrorMessage = "Country's population must be specified")]
         public int Population { get; set; }
-
-        /// <summary>
-        /// Name of the country.
-        /// </summary>
-        [Required(ErrorMessage = "Country's name must be specified")]
-        public string Name { get; set; }
 
         /// <summary>
         /// Name of the region.

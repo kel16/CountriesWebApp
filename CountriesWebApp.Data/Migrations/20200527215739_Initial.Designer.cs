@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CountriesWebApp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200527103451_InitDb")]
-    partial class InitDb
+    [Migration("20200527215739_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace CountriesWebApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Area");
+                    b.Property<double?>("Area");
 
                     b.Property<int?>("CapitalId");
 

@@ -32,7 +32,7 @@ const Update = ({ country }) => {
 		<Form
 			onSubmit={onSubmit}
 			initialValues={{
-				name: country.code,
+				name: country.name,
 				code: country.code,
 				area: country.area,
 				population: country.population,
