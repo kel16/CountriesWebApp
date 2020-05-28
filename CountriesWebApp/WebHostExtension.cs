@@ -11,6 +11,11 @@ namespace CountriesWebApp
 {
     public static class WebHostExtension
     {
+        /// <summary>
+        /// Creates database scheme.
+        /// </summary>
+        /// <param name="webHost"></param>
+        /// <returns></returns>
         public static IWebHost Migrate(this IWebHost webHost)
         {
             using (var serviceScope = webHost.Services.CreateScope())
@@ -22,6 +27,11 @@ namespace CountriesWebApp
             return webHost;
         }
 
+        /// <summary>
+        /// Inserts data into database.
+        /// </summary>
+        /// <param name="webHost"></param>
+        /// <returns></returns>
         public static IWebHost SeedingData(this IWebHost webHost)
         {
             var serviceScope = webHost.Services.CreateScope();

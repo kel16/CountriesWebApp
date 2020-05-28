@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace CountriesWebApp
 {
@@ -35,6 +36,7 @@ namespace CountriesWebApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            // Db connection string can be changed in appsettings.json
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -42,12 +44,6 @@ namespace CountriesWebApp
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Countries Web Application API", Version = "v1" });
-            });
-
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/public";
             });
 
             services.AddScoped<IRegionRepository, RegionRepository>();
@@ -75,9 +71,9 @@ namespace CountriesWebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action}");
+                    template: "api/{controller}/{action}");
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
-            app.UseSpaStaticFiles();
         }
     }
 }

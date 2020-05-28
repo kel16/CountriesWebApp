@@ -113,22 +113,21 @@ namespace CountriesWebApp
                     Area = country.FormattedArea,
                 };
 
+                if (country.Capital != "")
+                {
+                    context.Cities.Add(new City() { Id = ++cityCount, Name = country.Capital });
+
+                    newCountry.CapitalId = cityCount;
+                }
+
                 if (country.Region != "")
                 {
                     matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.Region.Trim().ToUpper()).FirstOrDefault();
-
-                    if (country.Capital != "")
-                    {
-                        context.Cities.Add(new City() { Id = ++cityCount, Name = country.Capital });
-
-                        newCountry.CapitalId = cityCount;
-                    }
 
                     if (matchedRegion == null)
                     {
                         context.Regions.Add(new Region() { Name = country.Region });
                         context.SaveChanges();
-                        List<Region> regions = context.Regions.Select(r => new Region() { Id = r.Id, Name = r.Name }).ToList();
                         matchedRegion = context.Regions.Where(r => r.Name.ToUpper() == country.Region.ToUpper()).FirstOrDefault();
                     }
 

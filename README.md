@@ -1,14 +1,12 @@
 # CountriesWebApp
 
-ASP.NET Core 2.1 and React Application
+ASP.NET Core 2.1 and React Application.
 
-/swagger - страница swagger'a
-
-/index.html - страница клиента
+/swagger - страница swagger'a.
 
 ## Тестовое задание
 
-Компания CRMguru, направление разработки C# + JS
+Компания CRMguru, направление разработки C# + JS.
 
 ## Требования к заданию:
 
@@ -40,4 +38,5 @@ ASP.NET Core 2.1 and React Application
 
 5. Должен работать с БД MS SQL.
 
-6. Удобно редактируемый конфиг с подключением к БД внутри приложения. 7. Читабельный код. (https://blogs.msdn.microsoft.com/brada/2005/01/26/internal-coding-guidelines/)
+6. Удобно редактируемый конфиг с подключением к БД внутри приложения. 
+7. Читабельный код. (https://blogs.msdn.microsoft.com/brada/2005/01/26/internal-coding-guidelines/)
